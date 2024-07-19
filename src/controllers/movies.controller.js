@@ -28,7 +28,7 @@ async function createMovie(req, res) {
     }
 
     try {
-        movie = await movieModel.createMovie(movie);
+        movie = await movieModel.create(movie);
         res.status(201);
         res.json(movie);
     } catch (error) {
@@ -39,7 +39,7 @@ async function createMovie(req, res) {
 
 async function getMovies(req, res) {
     try {
-        const movies = await movieModel.getMovies();
+        const movies = await movieModel.find();
         res.json(movies);
     } catch (error) {
         res.status(500);
