@@ -1,3 +1,5 @@
+const userModel = require('../models/user.model');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 async function register(req, res) {
@@ -21,6 +23,17 @@ async function register(req, res) {
         return;
     }
 
+    let existingUser = await userModel.findOne({ email: user.email });
+    if (existingUser) {
+        res.status(400);
+        res.json({ message: 'User already exists' });
+        return;
+    }
+
+    let salt = await bcrypt.genSalt(10);
+    let hashedPassword = await bcrypt.hash(user.password, salt);
+    user.password = hashedPassword;
+
     try {
         user = await userModel.create(user);
         res.status(201);
@@ -31,6 +44,7 @@ async function register(req, res) {
     }
 
     let token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
     user = user.toObject();
     delete user.password;
 
@@ -63,7 +77,9 @@ async function login(req, res) {
         return;
     }
 
-    if (!user.comparePassword(password)) {
+    let validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
         res.status(401);
         res.json({ message: 'Invalid email or password' });
         return;
