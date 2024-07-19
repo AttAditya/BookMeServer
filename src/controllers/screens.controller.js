@@ -4,15 +4,21 @@ async function createScreen(req, res) {
     let screen = req.body;
 
     if (!screen.theatre) {
-        return res.status(400).send({ message: 'Theatre is required' });
+        res.status(400);
+        res.json({ message: 'Theatre is required' });
+        return;
     }
 
     if (!screen.name) {
-        return res.status(400).send({ message: 'Screen name is required' });
+        res.status(400);
+        res.json({ message: 'Screen name is required' });
+        return;
     }
 
     if (!screen.seatData) {
-        return res.status(400).send({ message: 'Seat data is required' });
+        res.status(400);
+        res.json({ message: 'Seat data is required' });
+        return;
     }
 
     try {

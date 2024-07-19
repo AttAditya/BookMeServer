@@ -4,15 +4,21 @@ async function createTheatre(req, res) {
     let theatre = req.body;
 
     if (!theatre.name) {
-        return res.status(400).send({ message: 'Theatre name is required' });
+        res.status(400);
+        res.json({ message: 'Theatre name is required' });
+        return;
     }
 
     if (!theatre.location) {
-        return res.status(400).send({ message: 'Theatre location is required' });
+        res.status(400);
+        res.json({ message: 'Theatre location is required' });
+        return;
     }
 
     if (!theatre.screens) {
-        return res.status(400).send({ message: 'Number of screens is required' });
+        res.status(400);
+        res.json({ message: 'Number of screens is required' });
+        return;
     }
 
     try {

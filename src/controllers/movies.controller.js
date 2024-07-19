@@ -4,19 +4,27 @@ async function createMovie(req, res) {
     let movie = req.body;
 
     if (!movie.title) {
-        return res.status(400).send({ message: 'Movie title is required' });
+        res.status(400);
+        res.json({ message: 'Movie title is required' });
+        return;
     }
 
     if (!movie.image) {
-        return res.status(400).send({ message: 'Movie image is required' });
+        res.status(400);
+        res.json({ message: 'Movie image is required' });
+        return;
     }
 
     if (!movie.rating) {
-        return res.status(400).send({ message: 'Movie rating is required' });
+        res.status(400);
+        res.json({ message: 'Movie rating is required' });
+        return;
     }
 
     if (!movie.description) {
-        return res.status(400).send({ message: 'Movie description is required' });
+        res.status(400);
+        res.json({ message: 'Movie description is required' });
+        return;
     }
 
     try {

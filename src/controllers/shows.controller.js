@@ -4,23 +4,27 @@ async function createShow(req, res) {
     let show = req.body;
 
     if (!show.movie) {
-        return res.status(400).send({ message: 'Movie is required' });
+        res.status(400);
+        res.json({ message: 'Movie is required' });
+        return;
     }
 
     if (!show.theatre) {
-        return res.status(400).send({ message: 'Theatre is required' });
+        res.status(400);
+        res.json({ message: 'Theatre is required' });
+        return;
     }
 
     if (!show.screen) {
-        return res.status(400).send({ message: 'Screen is required' });
+        res.status(400);
+        res.json({ message: 'Screen is required' });
+        return;
     }
 
-    if (!show.startTime) {
-        return res.status(400).send({ message: 'Start time is required' });
-    }
-
-    if (!show.endTime) {
-        return res.status(400).send({ message: 'End time is required' });
+    if (!show.time) {
+        res.status(400);
+        res.json({ message: 'Time is required' });
+        return;
     }
 
     try {
